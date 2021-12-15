@@ -1,0 +1,142 @@
+:root {
+    --size00: calc((1vh + 1vw) / 4);
+    --size0: calc((1vh + 1vw) / 2);
+    --size1: calc((2vh + 2vw) / 2);
+    --size2: calc((4vh + 4vw) / 2);
+    --size3: calc((8vh + 8vw) / 2);
+    --size4: calc((16vh + 16vw) / 2);
+    --size5: calc((32vh + 32vw) / 2);
+    --size6: calc((48vh + 48vw) / 2);
+    
+    --sizeMenuBtn: max(100px, var(--size3));
+    --sizeMenuWidth: max(100px, var(--size5));
+    --sizeMenuCategoryInterior: calc(100vw - 1.82vh - var(--size5));
+
+    --shadow1: var(--size00) var(--size00) var(--size1) 0 #0006;
+    --transition1:
+        height 250ms ease 0ms,
+        width 250ms ease 0ms,
+        margin 250ms ease 0ms,
+        border-radius 250ms ease 125ms,
+        transform 250ms ease 0ms;
+    --transition-color:
+        background-color 250ms ease 0ms,
+        color 250ms ease 0ms;
+    --color-content-bg: #fff5;
+    --color-active-bg: #0008;
+    --color-active-fg: #fea;
+    --transition-shadow: 
+        box-shadow 250ms ease 0ms;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: block;
+}
+
+body {
+    background-image: url("bDSC_0036.JPG");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+div#menu {
+    position: relative;
+    margin-top: var(--size1);
+    margin-left: var(--size3);
+
+    border-radius: var(--size3);
+    width: var(--sizeMenuBtn);
+    height: var(--sizeMenuBtn);
+    overflow: hidden;
+
+    background-color: var(--color-content-bg);
+    box-shadow: var(--shadow1);
+
+    transition: var(--transition1);
+
+} div#menu:hover {
+    height: 100vh;
+    width: var(--sizeMenuWidth);
+    margin-top: 0;
+
+    transform: skewX(20deg);
+    margin-left: 18.2vh; /* 50sin(20) */
+
+    border-radius: 0;
+    overflow: visible;
+}
+
+div#menu-exterior {
+    height: 100%;
+    width: 100%;
+    display: flex;
+} div#menu-exterior > span {
+    margin: auto;
+} div#menu:hover > div#menu-exterior {
+    display: none;
+}
+
+div#menu-scroll {
+    position: relative;
+    direction: rtl;
+    height: 100vh;
+    width: calc(100vw - 18.2vh);
+    overflow: hidden auto;
+}
+
+div#menu-interior {
+    direction: ltr;
+    left: calc(100% - (100vw - 18.2vh));
+    position: relative;
+}
+
+div#category-exteriors {
+    position: relative;
+    margin-bottom: var(--size1);
+    width: var(--sizeMenuWidth);
+
+    display: flex;
+    flex-direction: column;
+    padding-top: 35vh;
+    padding-bottom: 35vh;
+}
+div.category-exterior {
+    position: relative;
+    margin-left: var(--size1);
+
+    padding-top: var(--size2);
+    padding-bottom: var(--size2);
+    padding-left: var(--size1);
+    text-align: center;
+    font-size: 1.75em;
+    padding-right: calc(0.25 * var(--size5));
+
+    border-radius: var(--size2) 0 0 var(--size3);
+    transition: var(--transition-color), var(--transition-shadow);
+} div.category-exterior:hover {
+    background-color: var(--color-active-bg);
+    color: var(--color-active-fg);
+    box-shadow: var(--shadow1);
+} div.category-exterior div.text {
+    transform: skewX(-20deg);
+}
+
+
+div.category-interior {
+    position: absolute;
+    left: 100%;
+    width: 0;
+    height: 70vh;
+    top: -30vh;
+    background-color: var(--color-active-bg);
+    transition: var(--transition1);
+} div.category-exterior:hover > div.category-interior {
+    width: calc(100vw - var(--sizeMenuWidth) - 36.4vh);
+}
+
