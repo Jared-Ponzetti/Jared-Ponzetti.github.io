@@ -30,5 +30,40 @@ function setupLinkGroups(groups) {
     else
         linkGroups = groups;
 
+    const groupsHTML = document.getElementById("category-exteriors");
+    
+    let groupExterior = null;
+    let groupText = null;
+    let groupInterior = null;
+    let linkTag = null;
+    let linkText = null;
 
+    for (let group of linkGroups) {
+
+        groupExterior = document.createElement("div");
+        groupExterior.setAttribute("class", "category-exterior");
+        
+        groupText = document.createElement("div");
+        groupText.setAttribute("class", "text");
+        groupText.textContent = group.name;
+        groupExterior.appendChild(groupText);
+
+        groupInterior = document.createElement("div");
+        groupInterior.setAttribute("class", "category-interior");
+        for (let link of group.links) {
+
+            linkTag = document.createElement("a");
+            linkTag.setAttribute("href", link.url);
+            groupInterior.appendChild(linkTag);
+
+            linkText = document.createElement("div");
+            linkText.setAttribute("class", "text");
+            linkText.textContent = link.name;
+            linkTag.appendChild(linkText);
+
+        }
+        groupExterior.appendChild(groupInterior);
+
+        groupsHTML.appendChild(groupExterior);
+    }
 }

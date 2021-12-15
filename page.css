@@ -106,14 +106,14 @@ div#category-exteriors {
 
     display: flex;
     flex-direction: column;
-    padding-top: 35vh;
-    padding-bottom: 35vh;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
 }
 div.category-exterior {
     position: relative;
     margin-left: var(--size1);
 
-    padding: var(--size2) calc(0.25 * var(--size5)) var(--size2) var(--size1);
+    padding: var(--size2);
     text-align: center;
     font-size: 1.75em;
 
@@ -133,11 +133,11 @@ div.category-interior {
     position: absolute;
     left: 100%;
     width: 0;
-    min-height: 70vh;
-    top: -30vh;
+    top: -5vh;
     background-color: var(--color-active-bg);
     transition: var(--transition1);
     overflow-x: hidden;
+    margin-bottom: 10vh;
 
     display: flex;
     flex-direction: row;
@@ -154,16 +154,14 @@ a, a:hover, a:focus, a:active {
     color: inherit;
 }
 
-div.link {
-    text-align: center;
-    font-size: 1.75em;
-    padding: var(--size1) var(--size2);
-    margin: var(--size00) var(--size0);
+a {
+    padding: var(--size2) var(--size3);
+    margin: var(--size0);
     border-radius: var(--size2) var(--size3);
     background-color: var(--color-inactive-bg);
     transition: var(--transition1);
 
-} div.link:hover {
+} a:hover {
     background-color: var(--color-active-bg);
     color: var(--color-active-fg);
     box-shadow: var(--shadow2);
