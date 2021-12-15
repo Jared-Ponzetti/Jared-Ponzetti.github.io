@@ -4,22 +4,33 @@ const LINK_GROUP_ERROR = [{"group": "error", "links": [{"name": "the remote link
 let linkGroups = null;
 
 window.onload = (event) => {
-    //doGetRequest("links.json", setupLinkGroups);
-    setupLinkGroups(lg);
+    queryGoogleSheets();
 };
+
+function queryGoogleSheets() {
+    returnValue = null;        
+    apikey = "";
+    docId = "";
+    range = "'Sheet1'!A1:A1";
+    reqURL = new URL(`https://content-sheets.googleapis.com/v4/spreadsheets/${docId}/values/${range}`);
+    reqURL.searchParams.append("key", apikey);
+
+    doGetRequest(reqURL, (json_rsp) => {
+        cellA1 = json_rsp.values[0][0];
+        setupLinkGroups(JSON.parse(cellA1));
+    });
+}
 
 
 function doGetRequest(url, json_param_callback) {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.onreadystatechange = function() {
-        if (this.readyState !== XMLHttpRequest.DONE || this.status !== 200) {
-            json_param_callback(null);
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            data = JSON.parse(this.responseText);
+            json_param_callback(data);
             return;
         }
-        
-        data = JSON.parse(this.responseText);
-        json_param_callback(data);
     }
     xhr.send();
 }
