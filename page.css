@@ -12,18 +12,21 @@
     --sizeMenuWidth: max(100px, var(--size5));
     --sizeMenuCategoryInterior: calc(100vw - 1.82vh - var(--size5));
 
-    --shadow1: var(--size00) var(--size00) var(--size1) 0 #0006;
+    --shadow1: var(--size00) var(--size00) var(--size1) 0 #0008;
+    --shadow2: var(--size00) var(--size00) var(--size1) 0 #fea8;
     --transition1:
         height 250ms ease 0ms,
         width 250ms ease 0ms,
         margin 250ms ease 0ms,
-        border-radius 250ms ease 125ms,
+        border-radius 332ms ease 125ms,
+        box-shadow 250ms ease 0ms,
         transform 250ms ease 0ms;
     --transition-color:
         background-color 250ms ease 0ms,
         color 250ms ease 0ms;
     --color-content-bg: #fff5;
     --color-active-bg: #0008;
+    --color-inactive-bg: #0006;
     --color-active-fg: #fea;
     --transition-shadow: 
         box-shadow 250ms ease 0ms;
@@ -110,12 +113,9 @@ div.category-exterior {
     position: relative;
     margin-left: var(--size1);
 
-    padding-top: var(--size2);
-    padding-bottom: var(--size2);
-    padding-left: var(--size1);
+    padding: var(--size2) calc(0.25 * var(--size5)) var(--size2) var(--size1);
     text-align: center;
     font-size: 1.75em;
-    padding-right: calc(0.25 * var(--size5));
 
     border-radius: var(--size2) 0 0 var(--size3);
     transition: var(--transition-color), var(--transition-shadow);
@@ -123,20 +123,50 @@ div.category-exterior {
     background-color: var(--color-active-bg);
     color: var(--color-active-fg);
     box-shadow: var(--shadow1);
-} div.category-exterior div.text {
-    transform: skewX(-20deg);
 }
 
+div.text {
+    transform: skewX(-20deg);
+}
 
 div.category-interior {
     position: absolute;
     left: 100%;
     width: 0;
-    height: 70vh;
+    min-height: 70vh;
     top: -30vh;
     background-color: var(--color-active-bg);
     transition: var(--transition1);
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
 } div.category-exterior:hover > div.category-interior {
     width: calc(100vw - var(--sizeMenuWidth) - 36.4vh);
+    padding: var(--size2) calc(0.25 * var(--size5)) var(--size2) var(--size1);
+} 
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
 }
 
+div.link {
+    text-align: center;
+    font-size: 1.75em;
+    padding: var(--size1) var(--size2);
+    margin: var(--size00) var(--size0);
+    border-radius: var(--size2) var(--size3);
+    background-color: var(--color-inactive-bg);
+    transition: var(--transition1);
+
+} div.link:hover {
+    background-color: var(--color-active-bg);
+    color: var(--color-active-fg);
+    box-shadow: var(--shadow2);
+    border-radius: var(--size2) var(--size1);
+
+}
