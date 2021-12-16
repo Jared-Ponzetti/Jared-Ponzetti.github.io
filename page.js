@@ -4,16 +4,26 @@ const LINK_GROUP_ERROR = [{"group": "error", "links": [{"name": "the remote link
 let linkGroups = null;
 
 window.onload = (event) => {
-    queryGoogleSheets();
+    let s = window.location.search;
+
+    let keyStart = s.indexOf("key=") + 4; if(keyStart < 4) {console.error("No api key"); return;}
+    let keyEnd = s.indexOf("&", keyStart);
+    let apiKey = keyEnd < 0 ? s.slice(keyStart) : s.slice(keyStart, keyEnd);
+
+    let idStart = s.indexOf("id=") + 3; if(idStart < 3) {console.error("No doc id"); return;}
+    let idEnd = s.indexOf("&", idStart);
+    let docId = idEnd < 0 ? s.slice(idStart) : s.slice(idStart, idEnd);
+
+    console.log(s, keyStart, keyEnd, apiKey, idStart, idEnd, docId);
+
+    queryGoogleSheets(apiKey, docId);
 };
 
-function queryGoogleSheets() {
-    returnValue = null;        
-    apikey = "";
-    docId = "";
-    range = "'Sheet1'!A1:A1";
-    reqURL = new URL(`https://content-sheets.googleapis.com/v4/spreadsheets/${docId}/values/${range}`);
-    reqURL.searchParams.append("key", apikey);
+function queryGoogleSheets(apiKey, docId) {
+    
+    let range = "'Sheet1'!A1:A1";
+    let reqURL = new URL(`https://content-sheets.googleapis.com/v4/spreadsheets/${docId}/values/${range}`);
+    reqURL.searchParams.append("key", apiKey);
 
     doGetRequest(reqURL, (json_rsp) => {
         cellA1 = json_rsp.values[0][0];
