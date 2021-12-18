@@ -177,22 +177,22 @@
 
         </style>
         <script>
-            const LINK_GROUP_ERROR = [{"group": "error", "links": [{"name": "the remote links.json cannot be loaded", "url": "javascript:void(0);"}]}];
+            const OTHER_ERROR = [{"group": "error", "links": [{"name": "the remote links data cannot be loaded", "url": "javascript:void(0);"}]}];
+            const API_KEY_ERROR = [{"group": "error", "links": [{"name": "No API key given", "url": "javascript:void(0);"}]}];
+            const DOC_ID_ERROR = [{"group": "error", "links": [{"name": "No Doc id given", "url": "javascript:void(0);"}]}];
 
             let linkGroups = null;
 
             window.onload = (event) => {
                 let s = window.location.search;
 
-                let keyStart = s.indexOf("key=") + 4; if(keyStart < 4) {console.error("No api key"); return;}
+                let keyStart = s.indexOf("key=") + 4; if(keyStart < 4) {setupLinkGroups(API_KEY_ERROR); return;}
                 let keyEnd = s.indexOf("&", keyStart);
                 let apiKey = keyEnd < 0 ? s.slice(keyStart) : s.slice(keyStart, keyEnd);
 
-                let idStart = s.indexOf("id=") + 3; if(idStart < 3) {console.error("No doc id"); return;}
+                let idStart = s.indexOf("id=") + 3; if(idStart < 3) {setupLinkGroups(DOC_ID_ERROR); return;}
                 let idEnd = s.indexOf("&", idStart);
                 let docId = idEnd < 0 ? s.slice(idStart) : s.slice(idStart, idEnd);
-
-                console.log(s, keyStart, keyEnd, apiKey, idStart, idEnd, docId);
 
                 queryGoogleSheets(apiKey, docId);
             };
@@ -225,7 +225,7 @@
 
             function setupLinkGroups(groups) {
                 if (groups === null)
-                    linkGroups = LINK_GROUP_ERROR;
+                    linkGroups = OTHER_ERROR;
                 else
                     linkGroups = groups;
 
